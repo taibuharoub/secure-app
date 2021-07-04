@@ -1,6 +1,9 @@
 const express = require("express");
 const helmet = require("helmet");
 const compression = require("compression");
+const morgan = require("morgan");
+
+const { accessLogStream } = require("./helpers/logging");
 require("dotenv").config();
 
 const app = express();
@@ -10,6 +13,7 @@ app.use(express.json({ limit: "1mb" }));
 
 app.use(helmet());
 app.use(compression());
+app.use(morgan("combined", { stream: accessLogStream }))
 
 app.get("/", (req, res, next) => {
   res.status(200).json({
