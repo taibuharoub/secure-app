@@ -1,5 +1,6 @@
 const express = require("express");
 const helmet = require("helmet");
+const compression = require("compression");
 require("dotenv").config();
 
 const app = express();
@@ -8,6 +9,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json({ limit: "1mb" }));
 
 app.use(helmet());
+app.use(compression());
 
 app.get("/", (req, res, next) => {
   res.status(200).json({
