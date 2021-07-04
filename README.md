@@ -35,14 +35,16 @@ npm install
 
 ## Usage
 
-Rename ".env.example to "g.env" and update the values/settings to your own
+Rename ".env.example to ".env" and update the values/settings to your own
 
+Production Build
 ```sh
-npm run start
+npm start
 ```
 
+Development Build
 ```sh
-npm run start
+npm run build:dev
 ```
 
 ## Run tests
