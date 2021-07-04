@@ -1,10 +1,13 @@
 const express = require("express");
+const helmet = require("helmet");
 require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json({ limit: "1mb" }));
+
+app.use(helmet());
 
 app.get("/", (req, res, next) => {
   res.status(200).json({
