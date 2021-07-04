@@ -1,3 +1,6 @@
+const https = require("https");
+const fs = require("fs");
+
 const express = require("express");
 const helmet = require("helmet");
 const compression = require("compression");
@@ -8,6 +11,9 @@ require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+const privateKey = fs.readFileSync("server.key");
+const certificate = fs.readFileSync("server.cert");
 
 app.use(express.json({ limit: "1mb" }));
 
@@ -29,6 +35,6 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message, data: data });
 });
 
-app.listen(port, () => {
-  console.log(`Server started at http://localhost:${port}`);
+https.createServer({key: privateKey, cert: certificate}, app).listen(port, () => {
+  console.log(`Server started at https://localhost:${port}`);
 });
